@@ -246,6 +246,46 @@ const userService = {
             );
         });
     },
+
+    getUserByEmailAdress: (emailAdress, includePrivateData, callback) => {
+        logger.info(
+            `Fetching user by email address ${emailAdress} from the database...`
+        )
+        db.getConnection((err, connection) => {
+            if (err) {
+                logger.error('Error getting database connection:', err);
+                callback(err, null);
+                return;
+            }
+    
+            connection.query(
+                'SELECT * FROM user WHERE emailAdress = ?',
+                [emailAdress],
+                (error, result) => {
+                    connection.release(); // Release the connection back to the pool
+    
+                    if (error) {
+                        logger.error('Error executing query:', error);
+                        callback(error, null);
+                    } else {
+                        let data = result.length > 0 ? result[0] : null;
+                        if (data == null) {
+                            logger.warn(`No user found with email address ${emailAdress}.`);
+                            callback(null, null);
+                            return;
+                        }
+    
+                        if (!includePrivateData) {
+                            delete data.password;
+                        }
+    
+                        logger.info(`User with email address ${emailAdress} fetched successfully.`);
+                        callback(null, data);
+                    }
+                }
+            );
+        });
+    },
     
 
     getAllActive: (callback) => {

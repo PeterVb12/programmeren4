@@ -21,33 +21,33 @@ router.get('/user',
     userController.getAll
 )
 
-router.get('/api/user/profile', 
+router.get('/user/profile', 
     authMiddleware.validateToken,
     userController.getProfile
 )  
     
-router.get('/api/user/active', 
+router.get('/user/active', 
     userController.getAllActive
 )
 
-router.get('/api/user/inactive', 
+router.get('/user/inactive', 
     userController.getAllInactive
 )
 
 //use case 204
-router.get('/api/user/:userId',
+router.get('/user/:userId',
     authMiddleware.validateToken,
     userController.getById
 )
 
 //use case 205
-router.put('/api/user/:userId', 
+router.put('/user/:userId', 
     userMiddleware.validateUserUpdateMiddleware,
     authMiddleware.validateToken, 
     userController.updateUser)
 
 //use case 206
-router.delete('/api/user/:userId',
+router.delete('/user/:userId',
     authMiddleware.validateToken, 
     userController.delete
 )

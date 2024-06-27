@@ -62,13 +62,13 @@ const authController = {
                                 )
                             } else {
                                 logger.debug(
-                                    'User not found or password invalid'
+                                    'User does not exist'
                                 )
                                 callback(
                                     {
-                                        status: 409,
+                                        status: 404,
                                         message:
-                                            'User not found or password invalid',
+                                            'User does not exist',
                                         data: {}
                                     },
                                     null
@@ -140,12 +140,12 @@ const authController = {
                                 )
                             } else {
                                 logger.info(
-                                    'User not found or password invalid'
+                                    'User does not exist'
                                 )
                                 return next({
                                     status: 409,
                                     message:
-                                        'User not found or password invalid',
+                                        'User does not exist',
                                     data: {}
                                 })
                             }

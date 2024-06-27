@@ -27,7 +27,7 @@ const helper = {
                             city: 'Test City'
                         }
 
-                        userService.createUser(userData, (err, newUser) => {
+                        userService.create(userData, (err, newUser) => {
                             if (err) {
                                 reject(err) // Reject if there's an error during creation
                             } else {
