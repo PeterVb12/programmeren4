@@ -43,7 +43,6 @@ const userService = {
                             street: user.street,
                             city: user.city,
                             phoneNumber: user.phoneNumber,
-                            roles: JSON.stringify(user.roles) // Converteer de roles-array naar een JSON-string
                         },
                         function (error, results, fields) {
                             connection.release();
