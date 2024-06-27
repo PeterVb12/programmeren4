@@ -13,7 +13,7 @@ const router = express.Router()
 
 //use case 101
 routes.post('/login', 
-    authMiddleware.validateLogin, 
+    // authMiddleware.validateLogin, 
     AuthController.login)
 
 module.exports = routes
