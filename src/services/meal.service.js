@@ -173,6 +173,44 @@ const mealService = {
             );
         });
     },
+
+    update: (mealId, updatedMeal, callback) => {
+        logger.info(`Updating meal with id ${mealId}`);
+
+        db.getConnection((err, connection) => {
+            if (err) {
+                logger.error(err);
+                callback(err, null);
+                return;
+            }
+
+            // Query to update the meal information
+            connection.query(
+                'UPDATE `meal` SET ? WHERE id = ?',
+                [updatedMeal, mealId],
+                (error, results, fields) => {
+                    connection.release();
+
+                    if (error) {
+                        logger.error(error);
+                        callback(error, null);
+                    } else {
+                        logger.debug(results);
+                        if (results.affectedRows === 0) {
+                            const notFoundError = new Error(`Meal with id ${mealId} not found`);
+                            logger.error(notFoundError);
+                            callback(notFoundError, null);
+                        } else {
+                            callback(null, {
+                                message: `Meal with id ${mealId} updated successfully.`,
+                                data: { ...updatedMeal, id: mealId }
+                            });
+                        }
+                    }
+                }
+            );
+        });
+    },
 }
 
 module.exports = mealService

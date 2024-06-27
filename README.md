@@ -9,3 +9,7 @@ To install, run `npm install`.
 ## Running
 
 To run, type `npm run dev`.
+
+## Testing
+
+Om de tests uit te voeren, typ npm test.

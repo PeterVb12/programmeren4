@@ -1,17 +1,14 @@
 const express = require('express')
 const userRoutes = require('./src/routes/user.routes')
-const authRoutes = require('./src/routes/authentication.routes').routes
+const authRoutes = require('./src/routes/authentication.routes')
 const mealRoutes = require('./src/routes/meal.routes')
 const logger = require('./src/util/logger')
 
 const app = express()
-
-// express.json zorgt dat we de body van een request kunnen lezen
 app.use(express.json())
 
 const port = process.env.PORT || 3000
 
-// Dit is een voorbeeld van een simpele route
 app.get('/api/info', (req, res) => {
     console.log('GET /api/info')
     const info = {
@@ -23,9 +20,9 @@ app.get('/api/info', (req, res) => {
 })
 
 // Hier komen alle routes
-app.use('/api/auth', authRoutes)
-app.use(userRoutes)
-app.use(mealRoutes)
+app.use('/api', authRoutes)
+app.use('/api', userRoutes)
+app.use('/api', mealRoutes)
 
 
 

@@ -4,26 +4,6 @@ const logger = require('../util/logger')
 const db = require('../dao/mysql-db')
 
 const userService = {
-    //inmem
-
-    // create: (user, callback) => {
-    //     logger.info('create user', user)
-    //     database.add(user, (err, data) => {
-    //         if (err) {
-    //             logger.info(
-    //                 'error creating user: ',
-    //                 err.message || 'unknown error'
-    //             )
-    //             callback(err, null)
-    //         } else {
-    //             logger.trace(`User created with id ${data.id}.`)
-    //             callback(null, {
-    //                 message: `User created with id ${data.id}.`,
-    //                 data: data
-    //             })
-    //         }
-    //     })
-    // },
 
     create: (user, callback) => {
         logger.info('Creating user:', user);
@@ -57,7 +37,7 @@ const userService = {
                             id: newId,
                             firstName: user.firstName,
                             lastName: user.lastName,
-                            emailAdress: user.emailAddress,
+                            emailAdress: user.emailAdress,
                             password: user.password,
                             isActive: user.isActive,
                             street: user.street,
@@ -85,22 +65,6 @@ const userService = {
         });
     },
 
-    //inmem
-
-    // updateUser: (userId, user, callback) => {
-    //     database.updateUser(userId, user, (err, data) => {
-    //         if (err) {
-    //             callback(err, null)
-    //         } else {
-    //             callback(null, {
-    //                 message: `User updated with id ${data.id}.`,
-    //                 data: data
-    //             })
-    //         }
-    //     })
-    // },
-
-    //mysql
     updateUser: (userId, updatedUser, callback) => {
         logger.info(`Updating user with id ${userId}`);
     
@@ -147,20 +111,6 @@ const userService = {
 
     getAll: (callback) => {
         logger.info('getAll')
-
-        // Deprecated: de 'oude' manier van werken, met de inmemory database
-        // database.getAll((err, data) => {
-        //     if (err) {
-        //         callback(err, null)
-        //     } else {
-        //         callback(null, {
-        //             message: `Found ${data.length} users.`,
-        //             data: data
-        //         })
-        //     }
-        // })
-
-        // Nieuwe manier van werken: met de MySQL database
         db.getConnection(function (err, connection) {
             if (err) {
                 logger.error(err)
@@ -188,22 +138,6 @@ const userService = {
         })
     },
 
-    //inmem
-
-    // getById: (userId, callback) => {
-    //     database.getById(userId, (err, data) => {
-    //         if (err) {
-    //             callback(err, null)
-    //         } else {
-    //             callback(null, {
-    //                 message: `User updated with id ${data.id}.`,
-    //                 data: data
-    //             })
-    //         }
-    //     })
-    // },
-
-    //mysql
     getById: (userId, callback) => {
         logger.info(`getById for user with id ${userId}`);
     
@@ -274,24 +208,7 @@ const userService = {
             )
         })
     },
-
-
-    // //inmem
-
-    // delete: (userId, callback) => {
-    //     database.delete(userId, (err, data) => {
-    //         if (err) {
-    //             callback(err, null)
-    //         } else {
-    //             callback(null, {
-    //                 message: `User updated with id ${data.id}.`,
-    //                 data: data
-    //             })
-    //         }
-    //     })
-    // },
     
-    //mysql
     delete: (userId, callback) => {
         logger.info(`Deleting user with id ${userId}`);
     

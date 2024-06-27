@@ -44,6 +44,28 @@ let mealController = {
         })
     },
 
+    update: (req, res) => {
+        const mealId = req.params.mealid;
+        const updatedMeal = req.body;
+
+        mealService.update(mealId, updatedMeal, (err, result) => {
+            if (err) {
+                res.status(500).json({
+                    status: 500,
+                    message: err.message,
+                    data: {}
+                });
+            } else {
+                res.status(200).json({
+                    status: 200,
+                    message: result.message,
+                    data: result.data
+                });
+            }
+        });
+    },
+
+
     getAll: (req, res, next) => {
         logger.trace('controller getAll meals')
         mealService.getAll((error, success) => {
@@ -83,6 +105,8 @@ let mealController = {
             }
         })
     },
+
+
 
 }
 
